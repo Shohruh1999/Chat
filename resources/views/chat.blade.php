@@ -61,6 +61,9 @@
 
                         <!-- Contacts -->
                         <div class="bg-grey-lighter flex-1 overflow-auto">
+                            @foreach ($users as $users)
+
+
                             <div class="px-3 flex items-center bg-grey-light cursor-pointer">
                                 <div>
                                     <img class="h-12 w-12 rounded-full"
@@ -80,7 +83,7 @@
                                     </p>
                                 </div>
                             </div>
-                            
+                            @endforeach
                             <div class="bg-white px-3 flex items-center hover:bg-grey-lighter cursor-pointer">
                                 <div>
                                     <img class="h-12 w-12 rounded-full"

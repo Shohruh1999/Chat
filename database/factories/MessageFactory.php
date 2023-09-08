@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,9 @@ class MessageFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'message' => $this->faker->sentence(5),
+            'sendeder_id' => rand(1,3),
+            'receiver_id' => rand(1,3),
         ];
     }
 }
