@@ -19,7 +19,7 @@ class MessageFactory extends Factory
     {
         return [
             'message' => $this->faker->sentence(5),
-            'sendeder_id' => rand(1,3),
+            'user_id' => rand(1,3),
             'receiver_id' => rand(1,3),
         ];
     }
