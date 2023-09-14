@@ -13,10 +13,16 @@ class Message extends Model
         'message',
         'user_id',
         'receiver_id',
+        'chat_id',
+        'confirmed',
     ];
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+    public function chat() : BelongsTo
+    {
+        return $this->belongsTo(Chat::class);
     }
     
 

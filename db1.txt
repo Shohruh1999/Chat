@@ -1,0 +1,214 @@
+> $user->message
+= Illuminate\Database\Eloquent\Collection {#7263
+    all: [
+      App\Models\Message {#7265
+        id: 1,
+        message: "salom",
+        user_id: 1,
+        receiver_id: 2,
+        chat_id: 1,
+        confirmed: 1,
+        created_at: "2023-09-13 05:19:07",
+        updated_at: "2023-09-13 05:19:07",
+      },
+      App\Models\Message {#7238
+        id: 2,
+        message: "hello",
+        user_id: 1,
+        receiver_id: 3,
+        chat_id: 2,
+        confirmed: 1,
+        created_at: "2023-09-13 05:19:07",
+        updated_at: "2023-09-13 05:19:07",
+      },
+    ],
+  }
+
+> $user->message->max('id')
+= 2
+
+> $user->message->max('id')->chat_id
+
+   WARNING  Attempt to read property "chat_id" on int.
+
+= null
+
+> $user->message->max('chat_id')
+= 2
+
+> $user->message->message
+
+   Exception  Property [message] does not exist on this collection instance.
+
+> $user->message
+= Illuminate\Database\Eloquent\Collection {#7263
+    all: [
+      App\Models\Message {#7265
+        id: 1,
+        message: "salom",
+        user_id: 1,
+        receiver_id: 2,
+        chat_id: 1,
+        confirmed: 1,
+        created_at: "2023-09-13 05:19:07",
+        updated_at: "2023-09-13 05:19:07",
+      },
+      App\Models\Message {#7238
+        id: 2,
+        message: "hello",
+        user_id: 1,
+        receiver_id: 3,
+        chat_id: 2,
+        confirmed: 1,
+        created_at: "2023-09-13 05:19:07",
+        updated_at: "2023-09-13 05:19:07",
+      },
+    ],
+  }
+
+> $user->message->max('chat_id')->message()
+
+   Error  Call to a member function message() on int.
+
+> $user->send($user->id, 2);
+
+   BadMethodCallException  Call to undefined method App\Models\User::send().
+
+> $user->send($user->id, 2);
+
+   BadMethodCallException  Call to undefined method App\Models\User::send().
+
+> $user->send(1, 2);
+
+   BadMethodCallException  Call to undefined method App\Models\User::send().
+
+> $user->send(1,2);
+
+   BadMethodCallException  Call to undefined method App\Models\User::send().
+
+> $user->message
+= Illuminate\Database\Eloquent\Collection {#7263
+    all: [
+      App\Models\Message {#7265
+        id: 1,
+        message: "salom",
+        user_id: 1,
+        receiver_id: 2,
+        chat_id: 1,
+        confirmed: 1,
+        created_at: "2023-09-13 05:19:07",
+        updated_at: "2023-09-13 05:19:07",
+      },
+      App\Models\Message {#7238
+        id: 2,
+        message: "hello",
+        user_id: 1,
+        receiver_id: 3,
+        chat_id: 2,
+        confirmed: 1,
+        created_at: "2023-09-13 05:19:07",
+        updated_at: "2023-09-13 05:19:07",
+      },
+    ],
+  }
+
+> $user->message->where('receiver_id')->first();
+= App\Models\Message {#7265
+    id: 1,
+    message: "salom",
+    user_id: 1,
+    receiver_id: 2,
+    chat_id: 1,
+    confirmed: 1,
+    created_at: "2023-09-13 05:19:07",
+    updated_at: "2023-09-13 05:19:07",
+  }
+
+> $user->message->where('receiver_id')->first()->id;
+= 1
+
+> $user->message->where('receiver_id',3)->first()->id;
+= 2
+
+> $user->message->where('receiver_id',3)->first()->chat_id;
+= 2
+
+> $user->chat->first()->id;
+= 3
+
+> $user->chat->where('user_id',3)->first()->id;
+
+   WARNING  Attempt to read property "id" on null.
+
+= null
+
+> $user->chat->where('user_id',3)->first()->id;
+
+   WARNING  Attempt to read property "id" on null.
+
+= null
+
+> $user->id
+= 1
+
+> $user->message->where('receiver_id',3)->first()->chat_id;
+= 2
+
+> $user
+= App\Models\User {#7241
+    id: 1,
+    name: "shohruh",
+    photo: "avatar.png",
+    email: "shohruhegamberdiyev9@gmail.com",
+    email_verified_at: null,
+    #password: "$2y$10$.WwtzOzr8EJU3OLXXm5FnuBHE15czaUaUgdMgkRr7B7RBfszqJnFi",
+    #remember_token: null,
+    created_at: "2023-09-13 05:19:06",
+    updated_at: "2023-09-13 05:19:06",
+    chat: Illuminate\Database\Eloquent\Collection {#7258
+      all: [
+        App\Models\Chat {#7242
+          id: 3,
+          user_id: 1,
+          created_at: "2023-09-13 05:19:07",
+          updated_at: "2023-09-13 05:19:07",
+          message: App\Models\Message {#7246
+            id: 3,
+            message: "hello",
+            user_id: 2,
+            receiver_id: 1,
+            chat_id: 3,
+            confirmed: 1,
+            created_at: "2023-09-13 05:19:07",
+            updated_at: "2023-09-13 05:19:07",
+          },
+        },
+      ],
+    },
+    message: Illuminate\Database\Eloquent\Collection {#7263
+      all: [
+        App\Models\Message {#7265
+          id: 1,
+          message: "salom",
+          user_id: 1,
+          receiver_id: 2,
+          chat_id: 1,
+          confirmed: 1,
+          created_at: "2023-09-13 05:19:07",
+          updated_at: "2023-09-13 05:19:07",
+        },
+        App\Models\Message {#7238
+          id: 2,
+          message: "hello",
+          user_id: 1,
+          receiver_id: 3,
+          chat_id: 2,
+          confirmed: 1,
+          created_at: "2023-09-13 05:19:07",
+          updated_at: "2023-09-13 05:19:07",
+        },
+      ],
+    },
+  }
+
+> $uset

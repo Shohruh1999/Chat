@@ -51,5 +51,16 @@ class User extends Authenticatable
         return $this->hasMany(Message::class);
     }
     
+    public function chat(): HasMany
+    {
+        return $this->hasMany(Chat::class);
+    }
+    public function send($auth, $user){
+        $message = DB::table('messages')->where('user_id', $user->id)
+        ->orwhere('user_id', $auth)->first();
+        return $message;
+
+    }
+    
     
 }

@@ -70,9 +70,13 @@
                                                 12:45 pm
                                             </p>
                                         </div>
-                                        <p class="text-grey-dark mt-1 text-sm">
-                                            Hold the line!
-                                        </p>
+                                        @if ($user->message->count()!=0 && ($user->message->max('chat_id') > $user->chat->max('id')))
+                                           <p class="text-grey-dark mt-1 text-sm">
+                                                
+                                            
+                                            </p> 
+                                        @endif
+                                        
                                     </div>
                                 </div>
                             @endforeach
