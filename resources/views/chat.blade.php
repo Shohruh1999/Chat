@@ -1,11 +1,7 @@
-
- 
-
-
 <body class="h-screen overflow-hidden flex items-center justify-center" style="background: #edf2f7;">
     <div>
         <div class="w-full h-32" style="background-color: #449388"></div>
-            <link href="https://unpkg.com/tailwindcss@0.3.0/dist/tailwind.min.css" rel="stylesheet">
+        <link href="https://unpkg.com/tailwindcss@0.3.0/dist/tailwind.min.css" rel="stylesheet">
         <div class="container mx-auto" style="margin-top: -128px;">
             <div class="py-6 h-screen">
                 <div class="flex border border-grey rounded shadow-lg h-full">
@@ -64,19 +60,15 @@
                                     <div class="ml-4 flex-1 border-b border-grey-lighter py-4">
                                         <div class="flex items-bottom justify-between">
                                             <p class="text-grey-darkest">
-                                                {{$user->name}}
+                                                {{ $user->name }}
                                             </p>
                                             <p class="text-xs text-grey-darkest">
                                                 12:45 pm
                                             </p>
                                         </div>
-                                        @if ($user->message->count()!=0 && ($user->message->max('chat_id') > $user->chat->max('id')))
-                                           <p class="text-grey-dark mt-1 text-sm">
-                                                
-                                            
-                                            </p> 
-                                        @endif
-                                        
+                                        <p class="text-grey-dark mt-1 text-sm">
+                                            {{ $user->getChat(Auth::user()->id) }}
+                                        </p>
                                     </div>
                                 </div>
                             @endforeach

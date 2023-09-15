@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 
@@ -55,11 +57,29 @@ class User extends Authenticatable
     {
         return $this->hasMany(Chat::class);
     }
+
     public function send($auth, $user){
         $message = DB::table('messages')->where('user_id', $user->id)
         ->orwhere('user_id', $auth)->first();
         return $message;
 
+    }
+    
+    public function getChat(){
+        $auth= Auth::user();//auth user
+        $query =$auth->chat->where('send_id', $this->id); 
+        $query2= $auth->message->where('receiver_id', $this->id);
+        if ( $query->max('id')<$query2->max('id')){
+           foreach ($query2->groupBy('id')->first() as $message){
+                return $message->message;
+            }
+        }
+        if ($query->max('id')>$query2->max('id') ){
+             foreach ($query->groupBy('id')->first() as $message){
+                return $message->message->message;
+            }
+        }
+        return null;
     }
     
     
