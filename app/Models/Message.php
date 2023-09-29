@@ -24,6 +24,10 @@ class Message extends Model
     {
         return $this->belongsTo(Chat::class);
     }
+    public function hour(){
+        $time=$this->created_at->isoFormat('LT');
+        return $time;
+    }
     
 
     

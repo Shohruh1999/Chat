@@ -83,7 +83,7 @@
                 </div>
                 <div class="ml-4">
                     <p class="text-grey-darkest">
-                        New Movie! Expendables 4
+                        {{ $show->name }}
                     </p>
                     <p class="text-grey-darker text-xs mt-1">
                         Andrés, Tom, Harrison, Arnold, Sylvester
@@ -137,112 +137,31 @@
                     </div>
                 </div>
 
-                <div class="flex mb-2">
-                    <div class="rounded py-2 px-3" style="background-color: #F2F2F2">
-                        <p class="text-sm text-teal">
-                            Sylverter Stallone
-                        </p>
-                        <p class="text-sm mt-1">
-                            Hi everyone! Glad you could join! I am making a new movie.
-                        </p>
-                        <p class="text-right text-xs text-grey-dark mt-1">
-                            12:45 pm
-                        </p>
-                    </div>
-                </div>
-
-                <div class="flex mb-2">
-                    <div class="rounded py-2 px-3" style="background-color: #F2F2F2">
-                        <p class="text-sm text-purple">
-                            Tom Cruise
-                        </p>
-                        <p class="text-sm mt-1">
-                            Hi all! I have one question for the movie
-                        </p>
-                        <p class="text-right text-xs text-grey-dark mt-1">
-                            12:45 pm
-                        </p>
-                    </div>
-                </div>
-
-                <div class="flex mb-2">
-                    <div class="rounded py-2 px-3" style="background-color: #F2F2F2">
-                        <p class="text-sm text-orange">
-                            Harrison Ford
-                        </p>
-                        <p class="text-sm mt-1">
-                            Again?
-                        </p>
-                        <p class="text-right text-xs text-grey-dark mt-1">
-                            12:45 pm
-                        </p>
-                    </div>
-                </div>
-
-                <div class="flex mb-2">
-                    <div class="rounded py-2 px-3" style="background-color: #F2F2F2">
-                        <p class="text-sm text-orange">
-                            Russell Crowe
-                        </p>
-                        <p class="text-sm mt-1">
-                            Is Andrés coming for this one?
-                        </p>
-                        <p class="text-right text-xs text-grey-dark mt-1">
-                            12:45 pm
-                        </p>
-                    </div>
-                </div>
-
-                <div class="flex mb-2">
-                    <div class="rounded py-2 px-3" style="background-color: #F2F2F2">
-                        <p class="text-sm text-teal">
-                            Sylverter Stallone
-                        </p>
-                        <p class="text-sm mt-1">
-                            He is. Just invited him to join.
-                        </p>
-                        <p class="text-right text-xs text-grey-dark mt-1">
-                            12:45 pm
-                        </p>
-                    </div>
-                </div>
-
-                <div class="flex justify-end mb-2">
-                    <div class="rounded py-2 px-3" style="background-color: #E2F7CB">
-                        <p class="text-sm mt-1">
-                            Hi guys.
-                        </p>
-                        <p class="text-right text-xs text-grey-dark mt-1">
-                            12:45 pm
-                        </p>
-                    </div>
-                </div>
-
-                <div class="flex justify-end mb-2">
-                    <div class="rounded py-2 px-3" style="background-color: #E2F7CB">
-                        <p class="text-sm mt-1">
-                            Count me in
-                        </p>
-                        <p class="text-right text-xs text-grey-dark mt-1">
-                            12:45 pm
-                        </p>
-                    </div>
-                </div>
-
-                <div class="flex mb-2">
-                    <div class="rounded py-2 px-3" style="background-color: #F2F2F2">
-                        <p class="text-sm text-purple">
-                            Tom Cruise
-                        </p>
-                        <p class="text-sm mt-1">
-                            Get Andrés on this movie ASAP!
-                        </p>
-                        <p class="text-right text-xs text-grey-dark mt-1">
-                            12:45 pm
-                        </p>
-                    </div>
-                </div>
-
+                @foreach ($messages as $message)
+                    @if ($message->user_id == Auth::user()->id)
+                        <div class="flex justify-end mb-2">
+                            <div class="rounded py-2 px-3" style="background-color: #E2F7CB">
+                                <p class="text-sm mt-1">
+                                    {{ $message->message }}
+                                </p>
+                                <p class="text-right text-xs text-grey-dark mt-1">
+                                    {{ $message->hour() }}
+                                </p>
+                            </div>
+                        </div>
+                    @else
+                        <div class="flex mb-2">
+                            <div class="rounded py-2 px-3" style="background-color: #F2F2F2">
+                                <p class="text-sm mt-1">
+                                    {{ $message->message }}
+                                </p>
+                                <p class="text-right text-xs text-grey-dark mt-1">
+                                    {{ $message->hour() }}
+                                </p>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
             </div>
         </div>
 
@@ -255,17 +174,21 @@
                     </path>
                 </svg>
             </div>
-            <div class="flex-1 mx-4">
-                <input class="w-full border rounded px-2 py-2" type="text" />
-            </div>
-            <a href="">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
-                </svg>
+            <form class=" flex" action="{{ route('messages.store') }}" method="POST">
+                @csrf
 
-            </a>
+                <div class="flex-1 mx-4">
+                    <input name="send" class=" w-50" required class="w-full border rounded px-2 py-2"
+                        type="text" />
+                </div>
+                <button type="submit" style="margin-left: 20px">
+                    <svg type="submit" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                    </svg>
+                </button>
+            </form>
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                     <path fill="#263238" fill-opacity=".45"
