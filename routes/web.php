@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use App\Controllers\PhotoController;
@@ -27,7 +28,7 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::resources([
         '/photos' => PhotoController::class,
-        '/messages' => MessageController::class
+        '/messages' => MessageController::class,       
     ]);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

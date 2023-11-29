@@ -1,9 +1,10 @@
 <x-chats.index>
-<!-- Left -->
-<div class="w-1/3 border flex flex-col">
 
-    <!-- Header -->
-   
+    <!-- Left -->
+    <div class="w-1/3 border flex flex-col">
+
+        <!-- Header -->
+       
 
         <!-- Search -->
         <div class="py-2 px-2 bg-grey-lightest">
@@ -13,30 +14,26 @@
         <!-- Contacts -->
         <div class="bg-grey-lighter flex-1 overflow-auto">
             @foreach ($users as $user)
-                @if (Auth::user()->id != $user->id)
-                    <a href="{{ route('messages.show', $user->id) }}"
-                        class="bg-white px-3 flex items-center hover:bg-grey-lighter cursor-pointer">
-                        <div>
-                            @if ( $user->photo == 'avatar.png')
-                            <img  class="h-12 w-12 rounded-full" src="/img/{{ $user->photo }}" alt="">                  
-                            @else
-                            <img class="h-12 w-12 rounded-full" src="/storage/{{ $user->photo }}" />
-                            @endif
-                        </div>
-                        <div class="ml-4 flex-1 border-b border-grey-lighter py-4">
-                            <div class="flex items-bottom justify-between">
-                                <p class="text-grey-darkest">
-                                    {{ Str::substr($user->name, 0, 10) }}
-                                </p>
-                                
-                            </div>
-                            <p class="text-grey-dark mt-1 text-sm">
-                                {{ Str::substr($user->getChat(), 0, 10) }}
+            @if (Auth::user()->id != $user->id)
+                <a href="{{ route('messages.show', $user->id) }}"
+                    class="bg-white px-3 flex items-center hover:bg-grey-lighter cursor-pointer">
+                    <div>
+                        <img class="h-12 w-12 rounded-full"{{-- https://www.famousbirthdays.com/headshots/russell-crowe-6.jpg --}} src="/img/{{ $user->photo }}" />
+                    </div>
+                    <div class="ml-4 flex-1 border-b border-grey-lighter py-4">
+                        <div class="flex items-bottom justify-between">
+                            <p class="text-grey-darkest">
+                                {{ Str::substr($user->name, 0, 10) }}
                             </p>
+                            
                         </div>
-                    </a>
-                @endif
-            @endforeach
+                        <p class="text-grey-dark mt-1 text-sm">
+                            {{ Str::substr($user->getChat(), 0, 10) }}
+                        </p>
+                    </div>
+                </a>
+            @endif
+        @endforeach
 
         </div>
 
@@ -123,13 +120,6 @@
                                             d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
                                     </svg>
                                 @endif
-                                <a href='{{ route('messages.edit', $message->id) }}'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                                    </svg>
-                                </a>
                             </div>
                         </div>
                     @else
@@ -157,12 +147,12 @@
                     </path>
                 </svg>
             </div>
-            <form class=" flex" action="{{ route('messages.store', ['user' => $show]) }}" method="POST">
+            <form class=" flex" action="{{ route('messages.update', $edit_message->id) }}" method="POST" enctype="multipart/form-data">
+                @method('PUT')
                 @csrf
-
                 <div class="flex-1 mx-4">
                     <input name="send" class=" w-50" required class="w-full border rounded px-2 py-2"
-                        type="text" />
+                        type="text" value="{{ $edit_message->message }}"/>
                 </div>
                 <button type="submit" style="margin-left: 20px">
                     <svg type="submit" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
