@@ -42,24 +42,25 @@
         <!-- Contacts -->
         <div class="bg-grey-lighter flex-1 overflow-auto">
             @foreach ($users as $user)
-                @if (Auth::user() != $user)
+                @if (Auth::user()->id != $user->id)
                     <a href="{{ route('messages.show', $user->id) }}"
                         class="bg-white px-3 flex items-center hover:bg-grey-lighter cursor-pointer">
                         <div>
-                            <img class="h-12 w-12 rounded-full"
-                                src="https://www.famousbirthdays.com/headshots/russell-crowe-6.jpg" />
+                            @if ($user->photo == 'avatar.png')
+                                <img class="h-12 w-12 rounded-full" src="/img/{{ $user->photo }}" alt="">
+                            @else
+                                <img class="h-12 w-12 rounded-full" src="/storage/{{ $user->photo }}" />
+                            @endif
                         </div>
                         <div class="ml-4 flex-1 border-b border-grey-lighter py-4">
                             <div class="flex items-bottom justify-between">
                                 <p class="text-grey-darkest">
-                                    {{ $user->name }}
+                                    {{ Str::substr($user->name, 0, 10) }}
                                 </p>
-                                <p class="text-xs text-grey-darkest">
-                                    12:45 pm
-                                </p>
+
                             </div>
                             <p class="text-grey-dark mt-1 text-sm">
-                                {{ $user->getChat(Auth::user()->id) }}
+                                {{ Str::substr($user->getChat(), 0, 10) }}
                             </p>
                         </div>
                     </a>
@@ -120,7 +121,7 @@
         <div class="flex-1 overflow-auto" style="background-color: #DAD3CC">
             <div class="py-2 px-3">
 
-                <div class="flex justify-center mb-2">
+                {{--               <div class="flex justify-center mb-2">
                     <div class="rounded py-2 px-4" style="background-color: #DDECF2">
                         <p class="text-sm uppercase">
                             February 20, 2018
@@ -241,7 +242,8 @@
                             12:45 pm
                         </p>
                     </div>
-                </div>
+                </div> --}}
+                <!-- component -->
 
             </div>
         </div>
